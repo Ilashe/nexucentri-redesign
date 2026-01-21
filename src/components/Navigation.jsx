@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Menu, X, ChevronDown } from 'lucide-react';
 
 const Navigation = ({ currentPage, setCurrentPage, scrolled }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [toolsOpen, setToolsOpen] = useState(false);
-  
+  const [servicesTimeout, setServicesTimeout] = useState(null);
+  const [toolsTimeout, setToolsTimeout] = useState(null);
+
   const navItems = [
     { id: 'home', label: 'Home' },
     { id: 'about', label: 'About' },
@@ -38,6 +40,32 @@ const Navigation = ({ currentPage, setCurrentPage, scrolled }) => {
     setMobileMenuOpen(false);
   };
 
+  const handleServiceMouseEnter = () => {
+    if (servicesTimeout) clearTimeout(servicesTimeout);
+    setServicesOpen(true);
+    setToolsOpen(false);
+  };
+
+  const handleServiceMouseLeave = () => {
+    const timeout = setTimeout(() => {
+      setServicesOpen(false);
+    }, 200);
+    setServicesTimeout(timeout);
+  };
+
+  const handleToolMouseEnter = () => {
+    if (toolsTimeout) clearTimeout(toolsTimeout);
+    setToolsOpen(true);
+    setServicesOpen(false);
+  };
+
+  const handleToolMouseLeave = () => {
+    const timeout = setTimeout(() => {
+      setToolsOpen(false);
+    }, 200);
+    setToolsTimeout(timeout);
+  };
+
   const handleToolClick = (toolId) => {
     setCurrentPage('tools');
     setToolsOpen(false);
@@ -49,15 +77,28 @@ const Navigation = ({ currentPage, setCurrentPage, scrolled }) => {
     }, 100);
   };
 
+  // Close dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.target.closest('.dropdown-container')) {
+        setServicesOpen(false);
+        setToolsOpen(false);
+      }
+    };
+    
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   return (
     <nav className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled ? 'bg-[#1A1D23]/95 backdrop-blur-lg shadow-lg shadow-[#00BFFF]/10' : 'bg-transparent'}`}>
       <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3 cursor-pointer" onClick={() => setCurrentPage('home')}>
-            <img 
+            <img
               src="/logo.svg"
-              alt="Nexucentri Logo" 
-              className="h-28 w-auto object-contain"
+              alt="Nexucentri Logo"
+              className="h-12 w-auto object-contain"
             />
           </div>
 
@@ -65,21 +106,21 @@ const Navigation = ({ currentPage, setCurrentPage, scrolled }) => {
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map(item => (
               item.hasDropdown ? (
-                <div 
+                <div
                   key={item.id}
-                  className="relative"
-                  onMouseEnter={() => {
-                    if (item.id === 'services') setServicesOpen(true);
-                    if (item.id === 'tools') setToolsOpen(true);
-                  }}
-                  onMouseLeave={() => {
-                    if (item.id === 'services') setServicesOpen(false);
-                    if (item.id === 'tools') setToolsOpen(false);
-                  }}
+                  className="relative dropdown-container"
                 >
                   <button
+                    onMouseEnter={() => {
+                      if (item.id === 'services') handleServiceMouseEnter();
+                      if (item.id === 'tools') handleToolMouseEnter();
+                    }}
+                    onMouseLeave={() => {
+                      if (item.id === 'services') handleServiceMouseLeave();
+                      if (item.id === 'tools') handleToolMouseLeave();
+                    }}
                     className={`text-sm font-medium transition-all duration-300 hover:text-[#00BFFF] flex items-center gap-1 ${
-                      (item.id === 'services' && currentPage.startsWith('service-')) || 
+                      (item.id === 'services' && currentPage.startsWith('service-')) ||
                       (item.id === 'tools' && currentPage === 'tools') ||
                       currentPage === item.id ? 'text-[#00BFFF]' : 'text-gray-300'
                     }`}
@@ -89,10 +130,14 @@ const Navigation = ({ currentPage, setCurrentPage, scrolled }) => {
                       (item.id === 'services' && servicesOpen) || (item.id === 'tools' && toolsOpen) ? 'rotate-180' : ''
                     }`} />
                   </button>
-                  
+
                   {/* Services Dropdown */}
                   {item.id === 'services' && servicesOpen && (
-                    <div className="absolute top-full left-0 mt-2 w-80 bg-[#1A1D23] border border-[#00BFFF]/30 rounded-lg shadow-xl dropdown-menu z-50">
+                    <div
+                      className="absolute top-full left-0 mt-2 w-80 bg-[#1A1D23] border border-[#00BFFF]/30 rounded-lg shadow-xl dropdown-menu z-50"
+                      onMouseEnter={handleServiceMouseEnter}
+                      onMouseLeave={handleServiceMouseLeave}
+                    >
                       {services.map(service => (
                         <button
                           key={service.id}
@@ -107,7 +152,11 @@ const Navigation = ({ currentPage, setCurrentPage, scrolled }) => {
 
                   {/* Tools Dropdown */}
                   {item.id === 'tools' && toolsOpen && (
-                    <div className="absolute top-full left-0 mt-2 w-72 bg-[#1A1D23] border border-[#00BFFF]/30 rounded-lg shadow-xl dropdown-menu z-50">
+                    <div
+                      className="absolute top-full left-0 mt-2 w-72 bg-[#1A1D23] border border-[#00BFFF]/30 rounded-lg shadow-xl dropdown-menu z-50"
+                      onMouseEnter={handleToolMouseEnter}
+                      onMouseLeave={handleToolMouseLeave}
+                    >
                       {tools.map(tool => (
                         <button
                           key={tool.id}
@@ -138,7 +187,7 @@ const Navigation = ({ currentPage, setCurrentPage, scrolled }) => {
           </div>
 
           {/* Mobile Menu Button */}
-          <button 
+          <button
             className="md:hidden text-white"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
@@ -165,7 +214,7 @@ const Navigation = ({ currentPage, setCurrentPage, scrolled }) => {
                         (item.id === 'services' && servicesOpen) || (item.id === 'tools' && toolsOpen) ? 'rotate-180' : ''
                       }`} />
                     </button>
-                    
+
                     {item.id === 'services' && servicesOpen && (
                       <div className="ml-4 mt-2 space-y-2">
                         {services.map(service => (

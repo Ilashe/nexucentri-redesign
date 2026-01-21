@@ -6,13 +6,21 @@ import AnimatedBackground from './components/AnimatedBackground';
 
 // Pages
 import HomePage from './pages/HomePage';
+import AboutPage from './pages/AboutPage';
 import ServicesPage from './pages/ServicesPage';
 import CaseStudiesPage from './pages/CaseStudiesPage';
 import BlogPage from './pages/BlogPage';
 import ToolsPage from './pages/ToolsPage';
+import ContactPage from './pages/ContactPage';
 
 // Service Pages
 import AutomationsPage from './pages/services/AutomationsPage';
+import Office365Page from './pages/services/Office365Page';
+import CRMPage from './pages/services/CRMPage';
+import ITSupportPage from './pages/services/ITSupportPage';
+import CloudServicesPage from './pages/services/CloudServicesPage';
+import LeadGenerationPage from './pages/services/LeadGenerationPage';
+import WebDesignPage from './pages/services/WebDesignPage';
 
 import './App.css';
 
@@ -39,21 +47,24 @@ export default function App() {
 
   const renderPage = () => {
     switch(currentPage) {
-      case 'home': return <HomePage setCurrentPage={setCurrentPage} />;
+      case 'home': return <HomePage />;
+      case 'about': return <AboutPage />;
       case 'services': return <ServicesPage />;
       case 'case-studies': return <CaseStudiesPage />;
       case 'blog': return <BlogPage />;
       case 'tools': return <ToolsPage />;
+      case 'contact': return <ContactPage />;
       
       // Service Pages
       case 'service-automations': return <AutomationsPage />;
-      // Add other service pages as you create them
+      case 'service-office365': return <Office365Page />;
+      case 'service-crm': return <CRMPage />;
+      case 'service-it-support': return <ITSupportPage />;
+      case 'service-cloud-services': return <CloudServicesPage />;
+      case 'service-lead-generation': return <LeadGenerationPage />;
+      case 'service-web-design': return <WebDesignPage />;
       
-      // Placeholder for pages you'll copy from old project
-      case 'about': return <div className="min-h-screen pt-28 pb-20 text-center"><h1 className="text-4xl text-white">About Page - Copy from old project and update colors</h1></div>;
-      case 'contact': return <div className="min-h-screen pt-28 pb-20 text-center"><h1 className="text-4xl text-white">Contact Page - Copy from old project and update colors</h1></div>;
-      
-      default: return <HomePage setCurrentPage={setCurrentPage} />;
+      default: return <HomePage />;
     }
   };
 

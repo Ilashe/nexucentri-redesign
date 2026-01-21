@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
-import { ChevronRight, Users, CheckCircle, Globe, Zap, Cpu, TrendingUp, Shield, Cloud, ArrowRight, ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronRight, Users, CheckCircle, Globe, Zap, Cpu, TrendingUp, Shield, Cloud, ArrowRight, ChevronDown, ChevronUp, Briefcase, Code } from 'lucide-react';
 import NewsTicker from '../components/NewsTicker';
 
 const HomePage = ({ setCurrentPage }) => {
   const [expandedCard, setExpandedCard] = useState(null);
+  const [visibleCards, setVisibleCards] = React.useState([]);
+  const [visibleReasons, setVisibleReasons] = React.useState([]);
 
+  // DATA ARRAYS - MOVED BEFORE useEffect
   const stats = [
-    { icon: Users, number: "500+", label: "Clients Worldwide" },
-    { icon: CheckCircle, number: "1000+", label: "Projects Completed" },
-    { icon: Globe, number: "25+", label: "Countries Served" },
+    { icon: Users, number: "100+", label: "Clients Worldwide" },
+    { icon: CheckCircle, number: "500+", label: "Projects Completed" },
+    { icon: Globe, number: "25+", label: "Sectors Served" },
     { icon: Zap, number: "99.9%", label: "Client Satisfaction" }
   ];
 
@@ -21,6 +24,13 @@ const HomePage = ({ setCurrentPage }) => {
       pageId: "service-automations"
     },
     {
+      icon: Briefcase,
+      title: "Office 365 Administration",
+      shortDesc: "Expert management of your Microsoft 365 environment",
+      fullDesc: "Comprehensive Microsoft 365 management ensuring maximum productivity, security, and seamless collaboration for your entire organization.",
+      pageId: "service-office365"
+    },
+    {
       icon: TrendingUp,
       title: "CRM Management",
       shortDesc: "Transform customer relationships into lasting partnerships",
@@ -29,7 +39,7 @@ const HomePage = ({ setCurrentPage }) => {
     },
     {
       icon: Shield,
-      title: "IT Support & Security",
+      title: "IT Support & CyberSecurity",
       shortDesc: "24/7 enterprise-grade support and protection",
       fullDesc: "Comprehensive IT support with proactive monitoring, rapid response times, and robust cybersecurity measures. Our team ensures 99.9% uptime while protecting your digital assets from evolving threats.",
       pageId: "service-it-support"
@@ -40,6 +50,20 @@ const HomePage = ({ setCurrentPage }) => {
       shortDesc: "Scalable cloud infrastructure for modern business",
       fullDesc: "Seamless migration and management across AWS, GCP, and Azure. We design cloud architectures that reduce costs by 40%, improve scalability, and ensure business continuity with disaster recovery solutions.",
       pageId: "service-cloud-services"
+    },
+    {
+      icon: Globe,
+      title: "Lead Generation",
+      shortDesc: "Data-driven strategies that convert prospects",
+      fullDesc: "Proven lead generation strategies combining SEO, content marketing, and targeted campaigns to attract, nurture, and convert high-quality leads for sustainable business growth.",
+      pageId: "service-lead-generation"
+    },
+    {
+      icon: Code,
+      title: "Web Design & Development",
+      shortDesc: "Modern, responsive websites that drive engagement",
+      fullDesc: "Beautiful, high-performing websites that deliver exceptional user experiences. From custom design to CMS integration, we build conversion-focused sites that grow your business.",
+      pageId: "service-web-design"
     }
   ];
 
@@ -66,6 +90,45 @@ const HomePage = ({ setCurrentPage }) => {
     }
   ];
 
+  // NOW useEffect hooks can reference the arrays above
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = parseInt(entry.target.dataset.index);
+            setVisibleCards((prev) => [...new Set([...prev, index])]);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    const cards = document.querySelectorAll('.expertise-card');
+    cards.forEach((card) => observer.observe(card));
+
+    return () => observer.disconnect();
+  }, []);
+
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = parseInt(entry.target.dataset.index);
+            setVisibleReasons((prev) => [...new Set([...prev, index])]);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    const reasons = document.querySelectorAll('.reason-card');
+    reasons.forEach((reason) => observer.observe(reason));
+
+    return () => observer.disconnect();
+  }, []);
+
   const toggleCard = (index) => {
     setExpandedCard(expandedCard === index ? null : index);
   };
@@ -75,7 +138,7 @@ const HomePage = ({ setCurrentPage }) => {
       {/* Hero Section - 2 Column Layout */}
       <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-[#1A1D23] via-[#0a0d12] to-[#1A1D23]"></div>
-        
+
         <div className="relative max-w-7xl mx-auto px-6 w-full">
           <div className="grid md:grid-cols-3 gap-8 items-center">
             {/* Text Column - 33.33% */}
@@ -100,17 +163,12 @@ const HomePage = ({ setCurrentPage }) => {
             {/* Video Column - 66.67% */}
             <div className="md:col-span-2">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-[#00BFFF]/20 border border-[#00BFFF]/20 h-[500px]">
-                {/* 
-                  ADD YOUR VIDEO HERE:
-                  Place your video at: public/videos/hero-video.mp4
-                  Then uncomment the video tag below
-                */}
                 <video 
                   autoPlay 
                   loop 
                   muted 
                   playsInline 
-                  className="w-full h-auto"
+                  className="w-full h-full object-cover"
                   poster="/images/video-poster.jpg"
                 >
                   <source src="/videos/hero-video.mp4" type="video/mp4" />
@@ -122,7 +180,7 @@ const HomePage = ({ setCurrentPage }) => {
                   <div className="text-center">
                     <div className="w-20 h-20 bg-gradient-to-r from-[#00BFFF] to-[#00FFFF] rounded-full flex items-center justify-center mx-auto mb-4">
                       <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/>
+                        <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
                       </svg>
                     </div>
                     <p className="text-gray-300 text-sm">Add your video to public/videos/hero-video.mp4</p>
@@ -149,7 +207,7 @@ const HomePage = ({ setCurrentPage }) => {
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, idx) => (
-              <div 
+              <div
                 key={idx}
                 className="text-center transform hover:scale-110 transition-all duration-300 cursor-pointer"
                 style={{ animationDelay: `${idx * 150}ms` }}
@@ -179,13 +237,17 @@ const HomePage = ({ setCurrentPage }) => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-4">
             {services.map((service, idx) => (
-              <div 
+              <div
                 key={idx}
-                className={`group bg-gradient-to-br from-[#1A1D23]/50 to-[#0a0d12]/50 backdrop-blur-sm border border-[#00BFFF]/30 rounded-2xl p-6 hover:border-[#00FFFF]/50 transition-all duration-500 hover:shadow-2xl hover:shadow-[#00BFFF]/20 cursor-pointer ${
+                data-index={idx}
+                className={`expertise-card group bg-gradient-to-br from-[#1A1D23]/50 to-[#0a0d12]/50 backdrop-blur-sm border border-[#00BFFF]/30 rounded-xl p-4 hover:border-[#00FFFF]/50 transition-all duration-500 hover:shadow-2xl hover:shadow-[#00BFFF]/20 cursor-pointer ${
                   expandedCard === idx ? 'md:col-span-2 lg:col-span-2' : ''
+                } ${
+                  visibleCards.includes(idx) ? 'animate-fadeInUp opacity-100' : 'opacity-0'
                 }`}
+                style={{ animationDelay: `${idx * 100}ms` }}
                 onMouseEnter={() => toggleCard(idx)}
                 onMouseLeave={() => setExpandedCard(null)}
               >
@@ -210,7 +272,7 @@ const HomePage = ({ setCurrentPage }) => {
                     <p className="text-gray-300 leading-relaxed mb-4">
                       {service.fullDesc}
                     </p>
-                    <button 
+                    <button
                       onClick={(e) => {
                         e.stopPropagation();
                         setCurrentPage(service.pageId);
@@ -242,9 +304,13 @@ const HomePage = ({ setCurrentPage }) => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {whyChooseUs.map((reason, idx) => (
-              <div 
+              <div
                 key={idx}
-                className="bg-gradient-to-br from-[#1A1D23]/80 to-[#0a0d12]/80 backdrop-blur-sm border border-[#00BFFF]/20 rounded-2xl p-8 hover:border-[#00FFFF]/50 transition-all duration-300 hover:transform hover:-translate-y-2 hover:shadow-xl hover:shadow-[#00BFFF]/20"
+                data-index={idx}
+                className={`reason-card bg-gradient-to-br from-[#1A1D23]/80 to-[#0a0d12]/80 backdrop-blur-sm border border-[#00BFFF]/20 rounded-2xl p-8 hover:border-[#00FFFF]/50 transition-all duration-300 hover:transform hover:-translate-y-2 hover:shadow-xl hover:shadow-[#00BFFF]/20 ${
+                  visibleReasons.includes(idx) ? 'animate-scaleIn opacity-100' : 'opacity-0'
+                }`}
+                style={{ animationDelay: `${idx * 150}ms` }}
               >
                 <div className="flex items-center gap-4 mb-4">
                   <div className="w-12 h-12 bg-gradient-to-br from-[#00BFFF] to-[#00FFFF] rounded-lg flex items-center justify-center flex-shrink-0">
