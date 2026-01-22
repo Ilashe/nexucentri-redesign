@@ -46,15 +46,26 @@ export default function App() {
   }
 
   const renderPage = () => {
-    switch(currentPage) {
+    switch (currentPage) {
       case 'home': return <HomePage />;
+
+      case 'why-nexucentri':
+        // Scroll to Why Nexucentri section on homepage
+        setTimeout(() => {
+          const element = document.getElementById('why-nexucentri-section');
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 100);
+        return <HomePage setCurrentPage={setCurrentPage} />;
+
       case 'about': return <AboutPage />;
       case 'services': return <ServicesPage />;
       case 'case-studies': return <CaseStudiesPage />;
       case 'blog': return <BlogPage />;
       case 'tools': return <ToolsPage />;
       case 'contact': return <ContactPage />;
-      
+
       // Service Pages
       case 'service-automations': return <AutomationsPage />;
       case 'service-office365': return <Office365Page />;
@@ -63,7 +74,7 @@ export default function App() {
       case 'service-cloud-services': return <CloudServicesPage />;
       case 'service-lead-generation': return <LeadGenerationPage />;
       case 'service-web-design': return <WebDesignPage />;
-      
+
       default: return <HomePage />;
     }
   };
@@ -75,7 +86,7 @@ export default function App() {
       <main>
         {renderPage()}
       </main>
-      <Footer />
+      <Footer setCurrentPage={setCurrentPage} />
     </div>
   );
 }

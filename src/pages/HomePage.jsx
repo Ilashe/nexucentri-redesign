@@ -291,7 +291,7 @@ const HomePage = ({ setCurrentPage }) => {
       </section>
 
       {/* Why Work With Nexucentri */}
-      <section className="py-20 bg-gradient-to-r from-[#00BFFF]/10 to-[#00FFFF]/10 backdrop-blur-sm">
+      <section id="why-nexucentri-section" className="py-20 bg-gradient-to-r from-[#00BFFF]/10 to-[#00FFFF]/10 backdrop-blur-sm scroll-mt-20">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">

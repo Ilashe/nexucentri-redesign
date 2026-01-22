@@ -12,6 +12,7 @@ const Navigation = ({ currentPage, setCurrentPage, scrolled }) => {
     { id: 'home', label: 'Home' },
     { id: 'about', label: 'About' },
     { id: 'services', label: 'Services', hasDropdown: true },
+    { id: 'why-nexucentri', label: 'Why Nexucentri' },
     { id: 'case-studies', label: 'Case Studies' },
     { id: 'blog', label: 'Blog' },
     { id: 'tools', label: 'Tools', hasDropdown: true },
@@ -85,7 +86,7 @@ const Navigation = ({ currentPage, setCurrentPage, scrolled }) => {
         setToolsOpen(false);
       }
     };
-    
+
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
@@ -119,16 +120,14 @@ const Navigation = ({ currentPage, setCurrentPage, scrolled }) => {
                       if (item.id === 'services') handleServiceMouseLeave();
                       if (item.id === 'tools') handleToolMouseLeave();
                     }}
-                    className={`text-sm font-medium transition-all duration-300 hover:text-[#00BFFF] flex items-center gap-1 ${
-                      (item.id === 'services' && currentPage.startsWith('service-')) ||
-                      (item.id === 'tools' && currentPage === 'tools') ||
-                      currentPage === item.id ? 'text-[#00BFFF]' : 'text-gray-300'
-                    }`}
+                    className={`text-sm font-medium transition-all duration-300 hover:text-[#00BFFF] flex items-center gap-1 ${(item.id === 'services' && currentPage.startsWith('service-')) ||
+                        (item.id === 'tools' && currentPage === 'tools') ||
+                        currentPage === item.id ? 'text-[#00BFFF]' : 'text-gray-300'
+                      }`}
                   >
                     {item.label}
-                    <ChevronDown size={16} className={`transition-transform ${
-                      (item.id === 'services' && servicesOpen) || (item.id === 'tools' && toolsOpen) ? 'rotate-180' : ''
-                    }`} />
+                    <ChevronDown size={16} className={`transition-transform ${(item.id === 'services' && servicesOpen) || (item.id === 'tools' && toolsOpen) ? 'rotate-180' : ''
+                      }`} />
                   </button>
 
                   {/* Services Dropdown */}
@@ -173,17 +172,13 @@ const Navigation = ({ currentPage, setCurrentPage, scrolled }) => {
                 <button
                   key={item.id}
                   onClick={() => setCurrentPage(item.id)}
-                  className={`text-sm font-medium transition-all duration-300 hover:text-[#00BFFF] ${
-                    currentPage === item.id ? 'text-[#00BFFF]' : 'text-gray-300'
-                  }`}
+                  className={`text-sm font-medium transition-all duration-300 hover:text-[#00BFFF] ${currentPage === item.id ? 'text-[#00BFFF]' : 'text-gray-300'
+                    }`}
                 >
                   {item.label}
                 </button>
               )
             ))}
-            <button className="bg-gradient-to-r from-[#00BFFF] to-[#00FFFF] text-white px-6 py-2 rounded-full hover:shadow-lg hover:shadow-[#00BFFF]/50 transition-all duration-300 transform hover:scale-105">
-              Get Started
-            </button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -210,9 +205,8 @@ const Navigation = ({ currentPage, setCurrentPage, scrolled }) => {
                       className="flex items-center justify-between w-full text-left text-sm font-medium text-gray-300 hover:text-[#00BFFF] transition-all"
                     >
                       {item.label}
-                      <ChevronDown size={16} className={`transition-transform ${
-                        (item.id === 'services' && servicesOpen) || (item.id === 'tools' && toolsOpen) ? 'rotate-180' : ''
-                      }`} />
+                      <ChevronDown size={16} className={`transition-transform ${(item.id === 'services' && servicesOpen) || (item.id === 'tools' && toolsOpen) ? 'rotate-180' : ''
+                        }`} />
                     </button>
 
                     {item.id === 'services' && servicesOpen && (
@@ -250,17 +244,13 @@ const Navigation = ({ currentPage, setCurrentPage, scrolled }) => {
                       setCurrentPage(item.id);
                       setMobileMenuOpen(false);
                     }}
-                    className={`block w-full text-left text-sm font-medium transition-all duration-300 hover:text-[#00BFFF] ${
-                      currentPage === item.id ? 'text-[#00BFFF]' : 'text-gray-300'
-                    }`}
+                    className={`block w-full text-left text-sm font-medium transition-all duration-300 hover:text-[#00BFFF] ${currentPage === item.id ? 'text-[#00BFFF]' : 'text-gray-300'
+                      }`}
                   >
                     {item.label}
                   </button>
                 )
-              ))}
-              <button className="w-full bg-gradient-to-r from-[#00BFFF] to-[#00FFFF] text-white px-6 py-2 rounded-full hover:shadow-lg hover:shadow-[#00BFFF]/50 transition-all duration-300">
-                Get Started
-              </button>
+              ))}  
             </div>
           </div>
         )}
