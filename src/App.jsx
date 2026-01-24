@@ -47,7 +47,7 @@ export default function App() {
 
   const renderPage = () => {
     switch (currentPage) {
-      case 'home': return <HomePage />;
+      case 'home': return <HomePage setCurrentPage={setCurrentPage} />;
 
       case 'why-nexucentri':
         // Scroll to Why Nexucentri section on homepage
@@ -60,22 +60,22 @@ export default function App() {
         return <HomePage setCurrentPage={setCurrentPage} />;
 
       case 'about': return <AboutPage />;
-      case 'services': return <ServicesPage />;
-      case 'case-studies': return <CaseStudiesPage />;
+      case 'services': return <ServicesPage setCurrentPage={setCurrentPage} />;
+      case 'case-studies': return <CaseStudiesPage setCurrentPage={setCurrentPage} />;
       case 'blog': return <BlogPage />;
-      case 'tools': return <ToolsPage />;
+      case 'tools': return <ToolsPage setCurrentPage={setCurrentPage} />;
       case 'contact': return <ContactPage />;
 
       // Service Pages
-      case 'service-automations': return <AutomationsPage />;
-      case 'service-office365': return <Office365Page />;
-      case 'service-crm': return <CRMPage />;
-      case 'service-it-support': return <ITSupportPage />;
-      case 'service-cloud-services': return <CloudServicesPage />;
-      case 'service-lead-generation': return <LeadGenerationPage />;
-      case 'service-web-design': return <WebDesignPage />;
+      case 'service-automations': return <AutomationsPage setCurrentPage={setCurrentPage} />;
+      case 'service-office365': return <Office365Page setCurrentPage={setCurrentPage} />;
+      case 'service-crm': return <CRMPage setCurrentPage={setCurrentPage} />;
+      case 'service-it-support': return <ITSupportPage setCurrentPage={setCurrentPage} />;
+      case 'service-cloud-services': return <CloudServicesPage setCurrentPage={setCurrentPage} />;
+      case 'service-lead-generation': return <LeadGenerationPage setCurrentPage={setCurrentPage} />;
+      case 'service-web-design': return <WebDesignPage setCurrentPage={setCurrentPage} />;
 
-      default: return <HomePage />;
+      default: return <HomePage setCurrentPage={setCurrentPage} />;
     }
   };
 

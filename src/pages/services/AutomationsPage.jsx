@@ -1,7 +1,7 @@
 import React from 'react';
 import { Cpu, CheckCircle, ArrowRight, TrendingUp, Clock, DollarSign, Building2, Calculator } from 'lucide-react';
 
-const AutomationsPage = () => {
+const AutomationsPage = ({ setCurrentPage }) => {
   const benefits = [
     { icon: Clock, title: "80% Time Savings", description: "Reduce manual work and free up your team for strategic tasks" },
     { icon: DollarSign, title: "50% Cost Reduction", description: "Lower operational costs through efficient automation" },
@@ -59,7 +59,13 @@ const AutomationsPage = () => {
             <p className="text-gray-400 leading-relaxed mb-8">
               From simple task automation to complex enterprise-wide process orchestration, we deliver solutions that provide immediate ROI and long-term scalability.
             </p>
-            <button className="bg-gradient-to-r from-[#00BFFF] to-[#00FFFF] text-white px-8 py-4 rounded-full hover:shadow-lg hover:shadow-[#00BFFF]/50 transition-all duration-300 transform hover:scale-105 inline-flex items-center gap-2">
+            <button
+              onClick={() => {
+                setCurrentPage('contact');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className="bg-gradient-to-r from-[#00BFFF] to-[#00FFFF] text-white px-8 py-4 rounded-full hover:shadow-lg hover:shadow-[#00BFFF]/50 transition-all duration-300 transform hover:scale-105 inline-flex items-center gap-2"
+            >
               Schedule Consultation
               <ArrowRight size={20} />
             </button>

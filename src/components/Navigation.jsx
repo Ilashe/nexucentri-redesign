@@ -97,10 +97,17 @@ const Navigation = ({ currentPage, setCurrentPage, scrolled }) => {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3 cursor-pointer" onClick={() => setCurrentPage('home')}>
             <img
-              src="/logo.svg"
-              alt="Nexucentri Logo"
+              src="/logo.jpeg"
+              alt="Nexucentri Logo Icon"
               className="h-12 w-auto object-contain"
+              style={{
+                filter: 'drop-shadow(0 0 8px rgba(0, 191, 255, 0.3))'
+              }}
             />
+            <div className="text-2xl font-bold tracking-wider" style={{ fontFamily: 'Montserrat, Montserrat', letterSpacing: '0.1em' }}>
+              <span style={{ color: '#00BFFF' }}>NEXU</span>
+              <span style={{ color: '#FFFFFF' }}>CENTRI</span>
+            </div>
           </div>
 
           {/* Desktop Menu */}
@@ -112,6 +119,16 @@ const Navigation = ({ currentPage, setCurrentPage, scrolled }) => {
                   className="relative dropdown-container"
                 >
                   <button
+                    onClick={() => {
+                      if (item.id === 'services') {
+                        setCurrentPage('services');
+                        setServicesOpen(false);
+                      }
+                      if (item.id === 'tools') {
+                        setCurrentPage('tools');
+                        setToolsOpen(false);
+                      }
+                    }}
                     onMouseEnter={() => {
                       if (item.id === 'services') handleServiceMouseEnter();
                       if (item.id === 'tools') handleToolMouseEnter();
@@ -120,7 +137,7 @@ const Navigation = ({ currentPage, setCurrentPage, scrolled }) => {
                       if (item.id === 'services') handleServiceMouseLeave();
                       if (item.id === 'tools') handleToolMouseLeave();
                     }}
-                    className={`text-sm font-medium transition-all duration-300 hover:text-[#00BFFF] flex items-center gap-1 ${(item.id === 'services' && currentPage.startsWith('service-')) ||
+                    className={`text-sm font-medium transition-all duration-300 hover:text-[#00BFFF] flex items-center gap-1 cursor-pointer ${(item.id === 'services' && currentPage.startsWith('service-')) ||
                         (item.id === 'tools' && currentPage === 'tools') ||
                         currentPage === item.id ? 'text-[#00BFFF]' : 'text-gray-300'
                       }`}
@@ -250,7 +267,7 @@ const Navigation = ({ currentPage, setCurrentPage, scrolled }) => {
                     {item.label}
                   </button>
                 )
-              ))}  
+              ))}
             </div>
           </div>
         )}

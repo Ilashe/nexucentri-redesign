@@ -23,9 +23,9 @@ const Footer = ({ setCurrentPage }) => {
           <div>
             <div className="flex items-center gap-2 mb-4">
               <img 
-                src="/logo.svg"
+                src="/logo.png"
                 alt="Nexucentri" 
-                className="h-12 w-auto object-contain"
+                className="h-22 w-auto object-contain"
               />
             </div>
             <p className="text-gray-400 text-sm leading-relaxed">

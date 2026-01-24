@@ -1,7 +1,7 @@
 import React from 'react';
 import { Building2, TrendingUp, Target, Award, ArrowRight, CheckCircle } from 'lucide-react';
 
-const CaseStudiesPage = () => {
+const CaseStudiesPage = ({ setCurrentPage }) => {
   const caseStudies = [
     {
       service: "Automations",
@@ -131,7 +131,7 @@ const CaseStudiesPage = () => {
 
         <div className="space-y-12">
           {caseStudies.map((study, idx) => (
-            <div 
+            <div
               key={idx}
               className="bg-gradient-to-br from-[#1A1D23]/50 to-[#0a0d12]/50 backdrop-blur-sm border border-[#00BFFF]/30 rounded-3xl p-8 md:p-12 hover:border-[#00FFFF]/50 transition-all duration-500 hover:shadow-2xl hover:shadow-[#00BFFF]/20"
             >
@@ -199,7 +199,13 @@ const CaseStudiesPage = () => {
           <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
             Let's discuss how we can help you achieve similar results
           </p>
-          <button className="bg-gradient-to-r from-[#00BFFF] to-[#00FFFF] text-white px-10 py-4 rounded-full hover:shadow-lg hover:shadow-[#00BFFF]/50 transition-all duration-300 transform hover:scale-105 inline-flex items-center gap-2">
+          <button
+            onClick={() => {
+              setCurrentPage('contact');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            className="bg-gradient-to-r from-[#00BFFF] to-[#00FFFF] text-white px-10 py-4 rounded-full hover:shadow-lg hover:shadow-[#00BFFF]/50 transition-all duration-300 transform hover:scale-105 inline-flex items-center gap-2"
+          >
             Start Your Transformation
             <ArrowRight size={20} />
           </button>

@@ -10,7 +10,7 @@ const SplashScreen = ({ onComplete }) => {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-[#1A1D23] via-[#00BFFF] to-[#00FFFF] animate-fadeIn">
       <div className="animate-scaleIn">
         <img 
-          src="/logo.svg"
+          src="/logo.png"
           alt="Nexucentri"
           className="max-w-md w-full px-8"
         />

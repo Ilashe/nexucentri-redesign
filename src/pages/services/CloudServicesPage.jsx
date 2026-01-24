@@ -1,7 +1,7 @@
 import React from 'react';
 import { Cloud, CheckCircle, ArrowRight, Zap, DollarSign, Globe } from 'lucide-react';
 
-const CloudServicesPage = () => {
+const CloudServicesPage = ({ setCurrentPage }) => {
   const benefits = [
     { icon: Zap, title: "99.99% Uptime", description: "Reliable cloud infrastructure with minimal downtime" },
     { icon: DollarSign, title: "45% Cost Reduction", description: "Optimized cloud spending and resource allocation" },
@@ -38,7 +38,7 @@ const CloudServicesPage = () => {
         {/* Benefits */}
         <div className="grid md:grid-cols-3 gap-8 mb-20">
           {benefits.map((benefit, idx) => (
-            <div 
+            <div
               key={idx}
               className="bg-gradient-to-br from-[#1A1D23]/50 to-[#0a0d12]/50 backdrop-blur-sm border border-[#00BFFF]/30 rounded-2xl p-8 hover:border-[#00FFFF]/50 transition-all duration-300 hover:transform hover:-translate-y-2"
             >
@@ -61,7 +61,13 @@ const CloudServicesPage = () => {
             <p className="text-gray-400 leading-relaxed mb-8">
               Our certified cloud architects develop tailored strategies that align with your business goals. From lift-and-shift migrations to cloud-native application development, we handle every aspect of your cloud journey, including DevOps automation, security implementation, and ongoing optimization.
             </p>
-            <button className="bg-gradient-to-r from-[#00BFFF] to-[#00FFFF] text-white px-8 py-4 rounded-full hover:shadow-lg hover:shadow-[#00BFFF]/50 transition-all duration-300 transform hover:scale-105 inline-flex items-center gap-2">
+            <button
+              onClick={() => {
+                setCurrentPage('contact');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className="bg-gradient-to-r from-[#00BFFF] to-[#00FFFF] text-white px-8 py-4 rounded-full hover:shadow-lg hover:shadow-[#00BFFF]/50 transition-all duration-300 transform hover:scale-105 inline-flex items-center gap-2"
+            >
               Schedule Consultation
               <ArrowRight size={20} />
             </button>

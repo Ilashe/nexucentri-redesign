@@ -1,7 +1,7 @@
 import React from 'react';
 import { TrendingUp, CheckCircle, ArrowRight, Users, DollarSign, Target } from 'lucide-react';
 
-const CRMPage = () => {
+const CRMPage = ({ setCurrentPage }) => {
   const benefits = [
     { icon: Users, title: "89% Customer Retention", description: "Build lasting relationships with intelligent CRM systems" },
     { icon: DollarSign, title: "35% Revenue Growth", description: "Boost sales with optimized pipelines and automation" },
@@ -38,7 +38,7 @@ const CRMPage = () => {
         {/* Benefits */}
         <div className="grid md:grid-cols-3 gap-8 mb-20">
           {benefits.map((benefit, idx) => (
-            <div 
+            <div
               key={idx}
               className="bg-gradient-to-br from-[#1A1D23]/50 to-[#0a0d12]/50 backdrop-blur-sm border border-[#00BFFF]/30 rounded-2xl p-8 hover:border-[#00FFFF]/50 transition-all duration-300 hover:transform hover:-translate-y-2"
             >
@@ -61,7 +61,13 @@ const CRMPage = () => {
             <p className="text-gray-400 leading-relaxed mb-8">
               From initial setup to advanced customization, our team ensures your CRM system aligns perfectly with your business processes. We provide comprehensive training, ongoing support, and continuous optimization to maximize your ROI and drive sustainable growth.
             </p>
-            <button className="bg-gradient-to-r from-[#00BFFF] to-[#00FFFF] text-white px-8 py-4 rounded-full hover:shadow-lg hover:shadow-[#00BFFF]/50 transition-all duration-300 transform hover:scale-105 inline-flex items-center gap-2">
+            <button
+              onClick={() => {
+                setCurrentPage('contact');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className="bg-gradient-to-r from-[#00BFFF] to-[#00FFFF] text-white px-8 py-4 rounded-full hover:shadow-lg hover:shadow-[#00BFFF]/50 transition-all duration-300 transform hover:scale-105 inline-flex items-center gap-2"
+            >
               Schedule Consultation
               <ArrowRight size={20} />
             </button>

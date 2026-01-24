@@ -141,40 +141,21 @@ const HomePage = ({ setCurrentPage }) => {
 
         <div className="relative max-w-7xl mx-auto px-6 w-full">
           <div className="grid md:grid-cols-3 gap-8 items-center">
-            {/* Text Column - 33.33% */}
-            <div className="md:col-span-1 animate-fadeInUp">
-              <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white via-[#00BFFF] to-[#00FFFF] bg-clip-text text-transparent leading-tight">
-                Transform Your Digital Future
-              </h1>
-              <p className="text-lg md:text-xl text-gray-300 mb-8">
-                Empowering enterprises with cutting-edge technology solutions, intelligent automation, and strategic innovation
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <button className="group bg-gradient-to-r from-[#00BFFF] to-[#00FFFF] text-white px-8 py-4 rounded-full text-lg font-semibold hover:shadow-2xl hover:shadow-[#00BFFF]/50 transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2">
-                  Explore Solutions
-                  <ChevronRight className="group-hover:translate-x-1 transition-transform" />
-                </button>
-                <button className="border-2 border-[#00BFFF] text-[#00BFFF] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#00BFFF] hover:text-[#1A1D23] transition-all duration-300 transform hover:scale-105">
-                  Schedule Consultation
-                </button>
-              </div>
-            </div>
-
             {/* Video Column - 66.67% */}
             <div className="md:col-span-2">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-[#00BFFF]/20 border border-[#00BFFF]/20 h-[500px]">
-                <video 
-                  autoPlay 
-                  loop 
-                  muted 
-                  playsInline 
+                <video
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
                   className="w-full h-full object-cover"
                   poster="/images/video-poster.jpg"
                 >
                   <source src="/videos/hero-video.mp4" type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
-                
+
                 {/* Video Placeholder - Remove when you add real video */}
                 <div className="absolute inset-0 bg-gradient-to-br from-[#00BFFF]/20 to-[#00FFFF]/20 backdrop-blur-sm flex items-center justify-center">
                   <div className="text-center">
@@ -186,6 +167,37 @@ const HomePage = ({ setCurrentPage }) => {
                     <p className="text-gray-300 text-sm">Add your video to public/videos/hero-video.mp4</p>
                   </div>
                 </div>
+              </div>
+            </div>
+
+            {/* Text Column - 33.33% */}
+            <div className="md:col-span-1 animate-fadeInUp">
+              <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white via-[#00BFFF] to-[#00FFFF] bg-clip-text text-transparent leading-tight">
+                Transform Your Digital Future
+              </h1>
+              <p className="text-lg md:text-xl text-gray-300 mb-8">
+                Empowering enterprises with cutting-edge technology solutions, intelligent automation, and strategic innovation
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <button
+                  onClick={() => {
+                    setCurrentPage('services');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="group bg-gradient-to-r from-[#00BFFF] to-[#00FFFF] text-white px-8 py-4 rounded-full text-lg font-semibold hover:shadow-2xl hover:shadow-[#00BFFF]/50 transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2"
+                >
+                  Explore Solutions
+                  <ChevronRight className="group-hover:translate-x-1 transition-transform" />
+                </button>
+                <button
+                  onClick={() => {
+                    setCurrentPage('contact');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="border-2 border-[#00BFFF] text-[#00BFFF] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#00BFFF] hover:text-[#1A1D23] transition-all duration-300 transform hover:scale-105"
+                >
+                  Schedule Consultation
+                </button>
               </div>
             </div>
           </div>
@@ -242,11 +254,9 @@ const HomePage = ({ setCurrentPage }) => {
               <div
                 key={idx}
                 data-index={idx}
-                className={`expertise-card group bg-gradient-to-br from-[#1A1D23]/50 to-[#0a0d12]/50 backdrop-blur-sm border border-[#00BFFF]/30 rounded-xl p-4 hover:border-[#00FFFF]/50 transition-all duration-500 hover:shadow-2xl hover:shadow-[#00BFFF]/20 cursor-pointer ${
-                  expandedCard === idx ? 'md:col-span-2 lg:col-span-2' : ''
-                } ${
-                  visibleCards.includes(idx) ? 'animate-fadeInUp opacity-100' : 'opacity-0'
-                }`}
+                className={`expertise-card group bg-gradient-to-br from-[#1A1D23]/50 to-[#0a0d12]/50 backdrop-blur-sm border border-[#00BFFF]/30 rounded-xl p-4 hover:border-[#00FFFF]/50 transition-all duration-500 hover:shadow-2xl hover:shadow-[#00BFFF]/20 cursor-pointer ${expandedCard === idx ? 'md:col-span-2 lg:col-span-2' : ''
+                  } ${visibleCards.includes(idx) ? 'animate-fadeInUp opacity-100' : 'opacity-0'
+                  }`}
                 style={{ animationDelay: `${idx * 100}ms` }}
                 onMouseEnter={() => toggleCard(idx)}
                 onMouseLeave={() => setExpandedCard(null)}
@@ -307,9 +317,8 @@ const HomePage = ({ setCurrentPage }) => {
               <div
                 key={idx}
                 data-index={idx}
-                className={`reason-card bg-gradient-to-br from-[#1A1D23]/80 to-[#0a0d12]/80 backdrop-blur-sm border border-[#00BFFF]/20 rounded-2xl p-8 hover:border-[#00FFFF]/50 transition-all duration-300 hover:transform hover:-translate-y-2 hover:shadow-xl hover:shadow-[#00BFFF]/20 ${
-                  visibleReasons.includes(idx) ? 'animate-scaleIn opacity-100' : 'opacity-0'
-                }`}
+                className={`reason-card bg-gradient-to-br from-[#1A1D23]/80 to-[#0a0d12]/80 backdrop-blur-sm border border-[#00BFFF]/20 rounded-2xl p-8 hover:border-[#00FFFF]/50 transition-all duration-300 hover:transform hover:-translate-y-2 hover:shadow-xl hover:shadow-[#00BFFF]/20 ${visibleReasons.includes(idx) ? 'animate-scaleIn opacity-100' : 'opacity-0'
+                  }`}
                 style={{ animationDelay: `${idx * 150}ms` }}
               >
                 <div className="flex items-center gap-4 mb-4">
@@ -336,7 +345,13 @@ const HomePage = ({ setCurrentPage }) => {
           <p className="text-xl text-gray-300 mb-8">
             Let's discuss how our solutions can drive your success
           </p>
-          <button className="group bg-gradient-to-r from-[#00BFFF] to-[#00FFFF] text-white px-10 py-4 rounded-full text-lg font-bold hover:shadow-2xl hover:shadow-[#00BFFF]/50 transition-all duration-300 transform hover:scale-105 inline-flex items-center gap-2">
+          <button
+            onClick={() => {
+              setCurrentPage('contact');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            className="group bg-gradient-to-r from-[#00BFFF] to-[#00FFFF] text-white px-10 py-4 rounded-full text-lg font-bold hover:shadow-2xl hover:shadow-[#00BFFF]/50 transition-all duration-300 transform hover:scale-105 inline-flex items-center gap-2"
+          >
             Book a Consultation
             <ArrowRight className="group-hover:translate-x-2 transition-transform" />
           </button>
