@@ -21,11 +21,11 @@ const Footer = ({ setCurrentPage }) => {
       <div className="max-w-7xl mx-auto px-6 py-12">
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           <div>
-            <div className="flex items-center gap-2 mb-4">
+            <div className="flex items-center mb-4">
               <img 
                 src="/logo.png"
                 alt="Nexucentri" 
-                className="h-22 w-auto object-contain"
+                className="h-10 w-auto"
               />
             </div>
             <p className="text-gray-400 text-sm leading-relaxed">

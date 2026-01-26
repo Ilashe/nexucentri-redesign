@@ -12,7 +12,7 @@ const SplashScreen = ({ onComplete }) => {
         <img 
           src="/logo.png"
           alt="Nexucentri"
-          className="max-w-md w-full px-8"
+          className="h-24 w-auto animate-pulse"
         />
       </div>
     </div>

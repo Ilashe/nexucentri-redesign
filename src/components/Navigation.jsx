@@ -95,19 +95,18 @@ const Navigation = ({ currentPage, setCurrentPage, scrolled }) => {
     <nav className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled ? 'bg-[#1A1D23]/95 backdrop-blur-lg shadow-lg shadow-[#00BFFF]/10' : 'bg-transparent'}`}>
       <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-3 cursor-pointer" onClick={() => setCurrentPage('home')}>
+          <div className="flex items-center cursor-pointer" onClick={() => {
+            setCurrentPage('home');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}>
             <img
-              src="/logo.jpeg"
-              alt="Nexucentri Logo Icon"
-              className="h-12 w-auto object-contain"
+              src="/logo.png"
+              alt="Nexucentri"
+              className="h-14 w-auto transition-transform duration-200 hover:scale-105"
               style={{
-                filter: 'drop-shadow(0 0 8px rgba(0, 191, 255, 0.3))'
+                filter: 'drop-shadow(0 0 10px rgba(0, 191, 255, 0.2))'
               }}
             />
-            <div className="text-2xl font-bold tracking-wider" style={{ fontFamily: 'Montserrat, Montserrat', letterSpacing: '0.1em' }}>
-              <span style={{ color: '#00BFFF' }}>NEXU</span>
-              <span style={{ color: '#FFFFFF' }}>CENTRI</span>
-            </div>
           </div>
 
           {/* Desktop Menu */}
